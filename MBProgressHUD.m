@@ -1151,6 +1151,10 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (CGSize)intrinsicContentSize {
     // Only show if we have associated control events
     if (self.allControlEvents == 0) return CGSizeZero;
+    // growingIO会自动添加event
+    if (self.allTargets.count == 1 && [self.allTargets.anyObject isKindOfClass:NSClassFromString(@"GrowingUIControlObserver")]) {
+        return CGSizeZero;
+    }
     CGSize size = [super intrinsicContentSize];
     // Add some side padding
     size.width += 20.f;
